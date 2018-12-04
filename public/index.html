@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Kuoro</title>
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+<main id="container-login">
+        <form class="startform space" action="login" method="post" id="loginform">
+            <h1 class="margin">Log in</h1>
+            <input class="input margin" type="text" name="username" placeholder="email@email.com"><br>
+            <input class="input margin" type="password" name="password" placeholder="****"><br>
+            <input class="button margin" id="button2" type="submit" value="Login">
+        </form> <br>
+    <button id="button1" class="margin">New user?</button>
+
+        <form class="startform space" action="newuser" method="post" id="uusiuser">
+            <h1 class="margin">Create an account</h1>
+            <input class="input margin" type="text" name="fname" placeholder="Etunimi"><br>
+            <input class="input margin" type="text" name="lname" placeholder="Sukunimi"><br>
+            <input class="input margin" type="text" name="email" placeholder="email@email.com" id="mail">
+            <span  id="herja"></span>
+            <br>
+            <input id="password1" class="input margin" type="password" name="password" placeholder="Salasana" required><br>
+            <input id="password2" class="input margin" type="password" name="password2" placeholder="Salasana uudestaan" required><br>
+            <input id="nappi" class="button margin" type="submit" value="Go">
+        </form>
+</main>
+<script src="js/index.js"></script>
+</body>
+</html>
