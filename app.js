@@ -83,6 +83,8 @@ app.post('/login',
         {successRedirect: '/node/login.html', failureRedirect: '/node/'}));
 
 //
+// -----------NEWUSER JUTUT!!!--------------
+//
 app.post('/newuser', (req, res, next) => {
   console.log(req.body);
   next();
@@ -130,6 +132,10 @@ app.use('/newuser', (req, res, next) => {
   });
 });
 
+//
+//----------------KUVAN TALLENNUS--------------------
+//
+
 //tallenna kuva
 app.use('/kuvaupload', upload.single('photo'),
     (req, res, next) => {
@@ -141,7 +147,7 @@ app.use('/kuvaupload', upload.single('photo'),
 app.use('/kuvaupload', (req, res, next) => {
   resize.doResize(req.file.path, 300,
       './public/thumbs/' + req.file.filename + '_thumb').then(() => {
-    console.log('päästiin tänne2');
+    console.log('päästiin tänne kuva');
     next();
   });
 });
@@ -164,6 +170,67 @@ app.use('/kuvaupload', (req, res, next) => {
 app.use('/kuvaupload', (req, res) => {
   res.send('{"status": "insert OK"}');
 });
+
+//
+//-------------ÄÄNI TALLENNUS------------------
+//
+
+app.use('/aaniupload', upload.single('sound'),
+    (req, res, next) => {
+      console.log('päästiin tänne ääni');
+      next();
+    });
+
+app.use('/aaniupload', (req, res, next) => {
+  const data2 = [
+    'aani/' + req.file.filename,
+    req.body.nimi,
+    req.body.esittaja,
+    req.body.saveltaja,
+    req.body.sanoittaja,
+    req.body.sovittaja,
+    req.body.kuvaus,
+  ];
+  console.log(data2, 'uploads');
+  db.insertAani(data2, connection, next);
+  next();
+});
+
+app.use('/aaniupload', (req, res) => {
+  res.send('{"status": "insert OK"}');
+});
+
+//
+//------------VIDEO URL TALLENNUS--------------------
+//
+app.post('/videoupload', (req, res, next) => {
+  console.log(req.body, 'data3');
+  next();
+});
+
+app.use('/videoupload', (req, res, next) => {
+      console.log('päästiin tänne video');
+      next();
+    });
+
+app.use('/videoupload', (req, res, next) => {
+    const data3 = [
+      req.body[1],
+      req.body[0],
+      req.body[2],
+    ];
+    console.log(data3, 'data3');
+    db.insertVideo(data3, connection, next);
+    next();
+});
+
+app.use('/videoupload', (req, res) => {
+  res.send('{"status": "insert OK"}');
+});
+
+//
+//
+//
 
 app.set('trust proxy');
 const sslkey = fs.readFileSync('/etc/pki/tls/private/ca.key');
