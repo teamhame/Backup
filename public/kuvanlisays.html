@@ -86,18 +86,15 @@
     </div>
 
     <div>
-        <form action="/upload" method="post" enctype="multipart/form-data" id="form3">
+        <form action="videoupload" method="post" id="formVideo">
             <label>Video
-                <br>
-                <input type="file" name="photo" accept="video/*">
             </label>
-            <br>
             <br>
             <label>Tiedot (Max 50 Merkkiä)
                 <br>
-                <input type="text" name="nimi" placeholder="Nimi">
+                <input type="text" name="nimi" placeholder="Nimi" required>
                 <br>
-                <input type="text" name="url" placeholder="Videon URL">
+                <input type="text" name="url" placeholder="Videon URL" required>
             </label>
             <br>
             <br>

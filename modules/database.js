@@ -86,7 +86,30 @@ const insertKuva = (data, connection, callback) => {
         callback();
       },
   );
+};
 
+const insertAani = (data, connection, callback) => {
+  connection.execute(
+      'INSERT INTO Media (mediaUrl, mediaNimi, mediaEsittaja, mediaSaveltaja, mediaSanoittaja, mediaSovittaja, mediaKuvaus) VALUES (?, ?, ?, ?, ?, ?, ?);',
+      data,
+      (err, results, fields) => {
+
+        console.log(err, ' database insertÄäni console log');
+        callback();
+      },
+  );
+};
+
+const insertVideo = (data, connection, callback) => {
+  connection.execute(
+      'INSERT INTO Video (videoUrl, videoNimi, videoKuvaus) VALUES (?, ?, ?);',
+      data,
+      (err, results, fields) => {
+
+        console.log(err, ' database insertVideo console log');
+        callback();
+      },
+  );
 };
 
 const update = (data, connection) => {
@@ -110,4 +133,6 @@ module.exports = {
   update: update,
   lupalista: lupalista,
   insertKuva: insertKuva,
+  insertAani: insertAani,
+  insertVideo: insertVideo,
 };
