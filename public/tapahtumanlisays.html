@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tapahtumanlisays</title>
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+<nav class="fronthead">
+    <button class="lista">o</button>
+    <input class="haku" id="haku" placeholder="haku">
+</nav>
+<main class="container">
+
+    <div>
+        <button>Tapahtuma</button>
+        <br>
+        <button>Tiedote</button>
+        <br>
+    </div>
+
+    <div>
+        <form action="Tapahtumaupload" method="post" id="formTapahtuma">
+            <br>
+            <label>Tiedot (Max 50 Merkkiä)
+                <br>
+                <input type="text" name="Nimi" placeholder="Nimi" required>
+                <br>
+                <br>
+                <label>Tapahtuman Alkamisaika
+                    <br>
+                    <input type="date" name="Alkaapvm" id="alku" required>
+                </label>
+                <br>
+                <br>
+                <label>Tapahtuman Alkamisaika
+                    <br>
+                    <input type="time" name="Alkaaklo" id="alkuklo" required>
+                </label>
+                <br>
+                <br>
+                <label>Tapahtuman Päättymisaika
+                    <br>
+                    <input type="date" name="Loppuupvm" id="loppu" required>
+                </label>
+                <br>
+                <br>
+                <label>Tapahtuman Päättymisaika
+                    <br>
+                    <input type="time" name="Loppuuklo" id="loppuklo" required>
+                </label>
+                <br>
+            </label>
+            <br>
+            <br>
+            <label>Kuvaus (max 400 merkkiä)
+                <br>
+                <textarea name="Kuvaus" rows="10" cols="40" maxlength="400"></textarea>
+            </label>
+            <br>
+            <button type="submit">Submit</button>
+        </form>
+        <br>
+    </div>
+
+    <div>
+        <form action="aaniupload" method="post" enctype="multipart/form-data" id="formAani">
+            <label>Äänite
+                <br>
+                <input type="file" name="sound" accept="audio/*">
+            </label>
+            <br>
+            <br>
+            <label>Tiedot (Max 50 Merkkiä)
+                <br>
+                <input type="text" name="nimi" placeholder="Nimi" required>
+                <br>
+                <input type="text" name="esittaja" placeholder="Esittäjä" required>
+                <br>
+                <input type="text" name="saveltaja" maxlength="50" placeholder="Säveltäjä">
+                <br>
+                <input type="text" name="sanoittaja" placeholder="Sanoittaja">
+                <br>
+                <input type="text" name="sovittaja" placeholder="Sovittaja">
+            </label>
+            <br>
+            <br>
+            <label>Kuvaus (max 400 merkkiä)
+                <br>
+                <textarea name="kuvaus" rows="10" cols="40" maxlength="400"></textarea>
+            </label>
+            <br>
+            <button type="submit">Submit</button>
+        </form>
+        <br>
+    </div>
+</main>
+
+<script src="js/tapahtumanlisays.js"></script>
+</body>
+</html>

@@ -15,7 +15,7 @@ const login = (data, connection, callback) => {
   connection.execute(
       'SELECT * FROM Kayttaja WHERE kayttajaEmail = ? AND kayttajaSalasana = ?;',
       data, (err, results, fields) => {
-        console.log(results);
+        console.log(results, 'id');
         console.log(err);
         callback(results);
       },
@@ -78,7 +78,7 @@ const insert = (data, connection, callback) => {
 
 const insertKuva = (data, connection, callback) => {
   connection.execute(
-      'INSERT INTO Media (mediaUrl, mediaThumb , mediaNimi, mediaSaveltaja, mediaSanoittaja, mediaSovittaja, mediaKuvaus) VALUES (?, ?, ?, ?, ?, ?, ?);',
+      'INSERT INTO Media (mediaUrl, mediaThumb , mediaNimi, mediaSaveltaja, mediaSanoittaja, mediaSovittaja, mediaKuvaus, kayttajaId) VALUES (?, ?, ?, ?, ?, ?, ?, ?);',
       data,
       (err, results, fields) => {
 
@@ -90,7 +90,7 @@ const insertKuva = (data, connection, callback) => {
 
 const insertAani = (data, connection, callback) => {
   connection.execute(
-      'INSERT INTO Media (mediaUrl, mediaNimi, mediaEsittaja, mediaSaveltaja, mediaSanoittaja, mediaSovittaja, mediaKuvaus) VALUES (?, ?, ?, ?, ?, ?, ?);',
+      'INSERT INTO Media (mediaUrl, mediaNimi, mediaEsittaja, mediaSaveltaja, mediaSanoittaja, mediaSovittaja, mediaKuvaus, kayttajaId ) VALUES (?, ?, ?, ?, ?, ?, ?, ?);',
       data,
       (err, results, fields) => {
 
@@ -102,7 +102,31 @@ const insertAani = (data, connection, callback) => {
 
 const insertVideo = (data, connection, callback) => {
   connection.execute(
-      'INSERT INTO Video (videoUrl, videoNimi, videoKuvaus) VALUES (?, ?, ?);',
+      'INSERT INTO Video (videoUrl, videoNimi, videoKuvaus, kayttajaId) VALUES (?, ?, ?, ?);',
+      data,
+      (err, results, fields) => {
+
+        console.log(err, ' database insertVideo console log');
+        callback();
+      },
+  );
+};
+
+const insertTapahtuma = (data, connection, callback) => {
+  connection.execute(
+      'INSERT INTO Tapahtuma (tapahtumanNimi, tapahtumaIlmoAlkaa, tapahtumaIloLoppuu, tapahtumaAlkaa, tapahtumaLoppuu, tapahtumaKuvaus) VALUES (?, ?, ?, ?, ?, ?);',
+      data,
+      (err, results, fields) => {
+
+        console.log(err, ' database insertVideo console log');
+        callback();
+      },
+  );
+};
+
+const insertTiedote = (data, connection, callback) => {
+  connection.execute(
+      'INSERT INTO Tiedote (tiedoteOtsikko, tiedoteTeksi, tiedoteAikaleima, kayttajaId) VALUES (?, ?, ?, ?);',
       data,
       (err, results, fields) => {
 
@@ -135,4 +159,6 @@ module.exports = {
   insertKuva: insertKuva,
   insertAani: insertAani,
   insertVideo: insertVideo,
+  insertTiedote: insertTiedote,
+  insertTapahtuma: insertTapahtuma,
 };
