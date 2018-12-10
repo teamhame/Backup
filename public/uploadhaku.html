@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>UploadHaku</title>
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+<form action="uploadhaku" method="post" id="formHaku">
+    <br>
+    <input type="text" name="haku" placeholder="Hakukenttä" required>
+    <br>
+    <button type="submit">Submit</button>
+    </form>
+
+<div class="modal hidden" id="modal1">
+    <button id="x">&times;</button>
+    <figure>
+        <a href="" download>
+        <img src="" alt="">
+        </a>
+    </figure>
+    <button id="like">like</button>
+
+</div>
+
+<div class="modal hidden" id="modal2">
+    <button id="y">&times;</button>
+    <figure>
+            <audio src="" controls></audio>
+    </figure>
+    <button id="like1">like</button>
+
+</div>
+<div id="holder"></div>
+<script src="js/uploadHaku.js"></script>
+</body>
+</html>

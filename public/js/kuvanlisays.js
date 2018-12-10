@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', function() {
         console.log(param);
         window.location.replace('HTTPS://10.114.32.171/node/index.html?page='+encodeURIComponent(window.location));
       }
-      setTimeout(timeout, 5000, 'moi');
+      setTimeout(timeout, 5, 'moi');
 
     }
 
@@ -47,6 +47,7 @@ const lahetaKuva = (evtKuva) => {
     method: 'post',
     body: fd,
   };
+
 
   fetch('./kuvaupload', settings).then((response) => {
     return response.json();

@@ -1,23 +1,26 @@
 'use strict';
 const lomake = document.querySelector('#uusiuser');
-
 const password = document.querySelector('#password1');
 const password2 = document.querySelector('#password2');
-
-
 const nappi = document.querySelector('#button1');
-
 const newUserform = document.querySelector('#uusiuser');
-
 newUserform.style.display = 'none';
-
+const valikko = document.querySelector('#valikko');
 const herja = document.querySelector('#herja');
-
 herja.style.display = 'none';
+
+const menuFunction= () => {
+  let x = document.getElementById("valikko");
+  if (x.className === "lista") {
+    x.className += " responsive";
+  } else {
+    x.className = "lista";
+  }
+}
 
 const createUser = (evt1) => {
   newUserform.style.display = 'flex';
-  nappi.style.display = 'none';
+  nappi.style.display="none";
 };
 
 const lahetaLomake = (evt) => {
@@ -67,4 +70,4 @@ const lahetaLomake = (evt) => {
 
 nappi.addEventListener('click', createUser);
 lomake.addEventListener('submit', lahetaLomake);
-
+valikko.addEventListener('click', menuFunction());

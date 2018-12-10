@@ -78,7 +78,7 @@ const insert = (data, connection, callback) => {
 
 const insertKuva = (data, connection, callback) => {
   connection.execute(
-      'INSERT INTO Media (mediaUrl, mediaThumb , mediaNimi, mediaSaveltaja, mediaSanoittaja, mediaSovittaja, mediaKuvaus, kayttajaId) VALUES (?, ?, ?, ?, ?, ?, ?, ?);',
+      'INSERT INTO Media (mediaUrl, mediaThumb, mediaOriginalname, mediaSize, mediaMimetype, mediaNimi, mediaSaveltaja, mediaSanoittaja, mediaSovittaja, mediaKuvaus, kayttajaId) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);',
       data,
       (err, results, fields) => {
 
@@ -90,7 +90,7 @@ const insertKuva = (data, connection, callback) => {
 
 const insertAani = (data, connection, callback) => {
   connection.execute(
-      'INSERT INTO Media (mediaUrl, mediaNimi, mediaEsittaja, mediaSaveltaja, mediaSanoittaja, mediaSovittaja, mediaKuvaus, kayttajaId ) VALUES (?, ?, ?, ?, ?, ?, ?, ?);',
+      'INSERT INTO Media (mediaUrl, mediaOriginalname, mediaSize, mediaMimetype, mediaNimi, mediaEsittaja, mediaSaveltaja, mediaSanoittaja, mediaSovittaja, mediaKuvaus, kayttajaId ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);',
       data,
       (err, results, fields) => {
 
@@ -114,7 +114,7 @@ const insertVideo = (data, connection, callback) => {
 
 const insertTapahtuma = (data, connection, callback) => {
   connection.execute(
-      'INSERT INTO Tapahtuma (tapahtumanNimi, tapahtumaIlmoAlkaa, tapahtumaIloLoppuu, tapahtumaAlkaa, tapahtumaLoppuu, tapahtumaKuvaus) VALUES (?, ?, ?, ?, ?, ?);',
+      'INSERT INTO Tapahtuma (tapahtumanNimi, tapahtumaIlmoAlkaa, tapahtumaIloLoppuu, tapahtumaAlkaa, tapahtumaLoppuu, tapahtumaKuvaus) VALUES (?, NOW(), ?, ?, ?, ?);',
       data,
       (err, results, fields) => {
 
@@ -132,6 +132,58 @@ const insertTiedote = (data, connection, callback) => {
 
         console.log(err, ' database insertVideo console log');
         callback();
+      },
+  );
+};
+
+//lähetä kommentti tietokantaan
+const insertKommentti = (data, connection, callback) => {
+  connection.execute(
+      'INSERT INTO Kommentti (kommenttiTeksti, kommenttiAikaleima, keskusteluId, kayttajaId) VALUES (?, NOW(), 1, ?);',
+      data,
+      (err, results) => {
+        console.log(err, ' database insertkommentti console log');
+        callback();
+      },
+  );
+};
+
+//kommenttien nouto
+const selectKommentit = (connection, callback) => {
+  // simple query
+  connection.query(
+      'SELECT kayttajaId, kommenttiAikaleima, kommenttiTeksti FROM Kommentti',
+      (err, results, fields) => {
+        console.log(err);
+        callback(results);
+      },
+  );
+};
+
+//tiedostojen nouto tietokannasta
+const selectHaku = (data, connection, callback) => {
+  // simple query
+  connection.query(
+      'SELECT * FROM Media WHERE mediaNimi LIKE ?;',
+      data,
+      (err, results, fields) => {
+        console.log(err);
+        callback(results);
+      },
+  );
+};
+
+//videoiden nouto tietokannasta
+const selectVideoHaku = (data, connection, callback) => {
+  // simple query
+  // 101218 klo 1057 Ville muuttanut .query:n .execute:ksi => ei toiminut
+  // yritetty yhdistää ?-lausetta ja LIKE-lausetta;
+  connection.execute(
+      'SELECT * FROM Video WHERE videoNimi LIKE ?;',
+      data,
+      (err, results, fields) => {
+        console.log(err);
+        callback(results);
       },
   );
 };
@@ -161,4 +213,8 @@ module.exports = {
   insertVideo: insertVideo,
   insertTiedote: insertTiedote,
   insertTapahtuma: insertTapahtuma,
+  insertKommentti: insertKommentti,
+  selectKommentit: selectKommentit,
+  selectHaku: selectHaku,
+  selectVideoHaku: selectVideoHaku,
 };
