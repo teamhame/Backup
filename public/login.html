@@ -10,56 +10,55 @@
 <body class="body-box">
 <nav class="fronthead">
     <div class="valikko" id="valikko">
-        <a href="#nolla">Nolla</a> <!--poistettu class: lista button class="active"-->
-        <a href="#eka">Eka</a>
-        <a href="#toka">Toka</a>
-        <a href="#kolmas">Kolmas</a>
+        <a href="login.html">Etusivu</a> <!--poistettu class: lista button class="active"-->
+        <a href="lasnaolo.html">Nimenhuuto</a>
+        <a href="kuvanlisays.html">Lisää mediaa</a>
+        <a href="tapahtumanlisays.html">Lisää uusi tapahtuma</a>
+        <a href="uploadhaku.html">Haku</a>
+        <a href="videoHaku.html">Videon haku</a>
         <a href="javascript:void(0);" class="icon">
-        <i class="fa fa-bars"></i>
-    </a>
+            <i class="fa fa-bars"></i>
+        </a>
     </div>
-    <input class="hae" id="haku" placeholder="haku">
+    <form id="loginForm" class="loginForm"><input class="hae" id="haku" placeholder="haku">
+        <button type="submit" name="hae " class="button-login">Go</button>
+    </form>
 </nav>
-<main id="container"><!--id="container1"-->
-    <button class="lasnaolo">Läsnäololista</button>
+<main class="container"><!--id="container1"-->
+    <!--<button class="lasnaolo">Läsnäololista</button>-->
     <div class="kalenterimuotoilu">
-    <div class="kalenteri pienikalenteri1">
-        <h3>Kalenteri</h3>
-        <ul>
-            <li>asia</li>
-            <li>asia</li>
-            <li>asia</li>
-        </ul>
-        <div class="nuoli-nappi"><img src="img/nuoli.png"></div>
-    </div>
+        <div class="kalenteri pienikalenteri1">
+            <h3>Kalenteri</h3>
+            <ul>
+                <li>asia</li>
+                <li>asia</li>
+                <li>asia</li>
+            </ul>
+            <div class="nuoli-nappi"></div>
+        </div>
 
-    <div class="kalenteri pienikalenteri2">
-        <h3>Tiedotteet</h3>
-        <ul>
-            <li>asia</li>
-            <li>asia</li>
-            <li>asia</li>
-        </ul>
-        <div class="nuoli-nappi"><img src="img/nuoli.png"></div>
+        <div class="kalenteri pienikalenteri2">
+            <h3>Tiedotteet</h3>
+            <ul>
+                <li>asia</li>
+                <li>asia</li>
+                <li>asia</li>
+            </ul>
+            <div class="nuoli-nappi"></div>
         </div>
     </div>
 
     <div class="kalenteri2">
         <h3>Kommenttiboksi</h3>
         <div class="kommentti">
-        <ul id="vanhatKommentit">
-        </ul>
-
-            <!--<ul id="vanhatKommentit">
-            <li>asia</li>
-            <li>asia</li>
-            <li>asia</li>
-        </ul>-->
+            <ul id="vanhatKommentit">
+            </ul>
         </div>
         <div class="kommenttikentta">
             <form action="kommentoi" method="post" id="formKommentti">
                 <input id="jataKommentti" name="kommentti" placeholder="Jätä kommentti">
-            <button type="submit" class="button" id="submitKommentti">Submit</button></form>
+                <button type="submit" class="button" id="submitKommentti">Submit</button>
+            </form>
         </div>
 
     </div>

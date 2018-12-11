@@ -12,8 +12,10 @@ const LocalStrategy = require('passport-local').Strategy;
 const session = require('express-session');
 const resize = require('./modules/resize');
 const cookieParser = require('cookie-parser');
-
 const multer = require('multer');
+const ExifImage = require('exif').ExifImage;
+// set up file upload
+
 const uploadkuva = multer({dest: 'public/kuvat/'});
 const uploadaani = multer({dest: 'public/aani/'});
 
@@ -29,6 +31,15 @@ const db = require('./modules/database');
 const connection = db.connect();
 
 app.use(cookieParser());
+
+/*const storage = multer.diskStorage({
+  destination: function(req, file, cb) {
+    cb(null, '/public/kuvat/');
+  },
+  filename: function(req, file, cb) {
+    cb(null, Date.now() + path.extname(file.originalname)); //Appending extension
+  },
+});*/
 
 const insertToDB = (data, res, next) => {
   db.insert(data, connection, () => {
@@ -256,7 +267,7 @@ app.use('/kuvaupload', (req, res) => {
 //-------------ÄÄNI TALLENNUS------------------
 //
 
-app.use('/aaniupload', uploadaani.single('sound'),
+app.use('/aaniupload', uploadaani.single('file'),
     (req, res, next) => {
       console.log('päästiin tänne ääni');
       next();
@@ -264,7 +275,7 @@ app.use('/aaniupload', uploadaani.single('sound'),
 
 app.use('/aaniupload', (req, res, next) => {
   const data2 = [
-    'aani/' + req.file.filename,
+    'kuvat/' + req.file.filename + '_ääni',
     req.file.originalname,
     req.file.size,
     req.file.mimetype,
@@ -403,6 +414,21 @@ app.use('/kommenttiupload', (req, res) =>{
 });*/
 
 //
+//-------------------LÄSNÄOLOJEN LATAUS NO STATUS------------------------
+//
+
+/*
+app.use('/lasnaoloPreload'), (req, res, next) => { ///kommenttiupload ennen
+  db.selectTapahtumatNostatus(connection, (results) => {
+    req.custom2 = results;
+    console.log(req.custom2, 'kommentti download');
+    next();
+  });
+};
+// KESKEN, TEIN MA-ILTANA!!!!!!!!!!!!!!!!!!!!!!!!!!!
+*/
+
+//
 //-------------------KUVIEN JA ÄÄNEN HAKU------------------------
 //
 
@@ -471,6 +497,92 @@ app.use('/uploadtapahtuma', (req, res, next) => {
   db.insertTapahtuma(data9, connection, next);
   next();
 });
+
+app.use('/uploadtapahtuma', (req, res, next) => {
+  res.send('{"status": "Tapahtuman lisäys valmis"}');
+});
+//
+//----------------------TIEDOTTEEN LISÄYS---------------------------
+//
+
+app.post('/uploadtiedote', (req, res, next) => {
+  next();
+});
+
+app.use('/uploadtiedote', (req, res, next) => {
+  const data10 = [
+    req.body[0],
+    req.body[1],
+    req.user.kayttajaId,
+  ];
+  db.insertTiedote(data10, connection, next);
+
+});
+
+app.use('/uploadtiedote', (req, res, next) => {
+  res.send('{"status": "Tiedotteen lisäys valmis"}');
+});
+
+//
+//----------------TYKKÄYS-------------------------------------------
+//
+app.post('/tykkays', (req, res, next) => {
+  console.log('tykkäys');
+  next();
+});
+
+app.use('/tykkays', (req, res, next) => {
+  const data12 = [
+    req.body[0],
+    req.user.kayttajaId,
+  ];
+  db.haeTykkays(data12, connection, (results) => {
+    req.custom = results;
+    console.log(req.custom);
+    next();
+  });
+});
+
+/*app.use('/tykkays', (req, res, next)=>{
+  const data7 = [
+    req.body[0],
+  ];
+  db.selectHakuTykkays(data7, connection, (result) => {
+    req.custom4 = result;
+    console.log(req.custom4, 'hei');
+    next();
+  });
+});*/
+
+app.use('/tykkays', (req, res, next) => {
+  //const moi = req.custom4;
+  //console.log(moi[0]["COUNT(*)"], 'moi');
+  //let a = '[{"testi1": "';
+  //a += moi[0]["COUNT(*)"];
+ // a += '"},';
+  //console.log(a, 'hei');
+  if (req.custom.length < 1) {
+    //a += '{"status": "ei tykkäystä"}]';
+    //console.log(a, 'moi');
+    res.send('{"status": "ei tykkäystä"}');
+    const data11 = [
+      req.body[0],
+      req.user.kayttajaId,
+
+    ];
+    db.insertTykkays(data11, connection, next);
+  }
+  else {
+    res.send('{"status": "jo tykätty"}');
+    const data11 = [
+      req.body[0],
+      req.user.kayttajaId,
+
+    ];
+    db.deleteTykkays(data11, connection, next);
+  }
+});
+
 
 //
 //------------------------------------------------------------------

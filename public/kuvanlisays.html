@@ -6,107 +6,112 @@
     <link rel="stylesheet" type="text/css" href="css/main.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
-<body>
-<h1>HTML SIVU</h1>
+<body class="body-box">
 <nav class="fronthead">
-    <button class="lista">o</button>
-    <input class="haku" id="haku" placeholder="haku">
-</nav>
-<main class="container">
-
-    <div>
-        <button>Kuva</button>
-        <br>
-        <button>Äänite</button>
-        <br>
-        <button>Videolinkki</button>
-        <br>
+    <div class="valikko" id="valikko">
+        <a href="login.html">Etusivu</a> <!--poistettu class: lista button class="active"-->
+        <a href="lasnaolo.html">Nimenhuuto</a>
+        <a href="kuvanlisays.html">Lisää mediaa</a>
+        <a href="tapahtumanlisays.html">Lisää uusi tapahtuma</a>
+        <a href="uploadhaku.html">Haku</a>
+        <a href="videoHaku.html">Videon haku</a>
+        <a href="javascript:void(0);" class="icon">
+            <i class="fa fa-bars"></i>
+        </a>
     </div>
+    <form class="loginForm"><input class="hae" id="haku" placeholder="haku">
+        <button type="submit" name="hae " class="button-login">Go</button>
+    </form>
+</nav>
 
-    <div>
-        <form action="kuvaupload" method="post" enctype="multipart/form-data" id="formKuva">
+<main class="container">
+        <button id="buttonKuva">Kuva</button>
+        <br>
+        <button id="buttonAani">Äänite</button>
+        <br>
+        <button id="buttonVideo">Videolinkki</button>
+        <br>
+
+        <form action="kuvaupload" method="post" enctype="multipart/form-data" id="formKuva" class="latauslomake">
             <label>Kuva
                 <br>
-                <input type="file" name="photo" accept="image/jpg, application/pdf">
+                <input type="file" name="photo" accept="image/jpg, application/pdf" class="input-file">
             </label>
             <br>
             <br>
             <label>Tiedot (Max 50 Merkkiä)
                 <br>
-                <input type="text" name="nimi" placeholder="Nimi">
+                <input type="text" name="nimi" placeholder="Nimi" class="haku-lomake">
                 <br>
-                <input type="text" name="saveltaja" maxlength="50" placeholder="Säveltäjä">
+                <input type="text" name="saveltaja" maxlength="50" placeholder="Säveltäjä" class="haku-lomake">
                 <br>
-                <input type="text" name="sanoittaja" placeholder="Sanoittaja">
+                <input type="text" name="sanoittaja" placeholder="Sanoittaja" class="haku-lomake">
                 <br>
-                <input type="text" name="sovittaja" placeholder="Sovittaja">
+                <input type="text" name="sovittaja" placeholder="Sovittaja" class="haku-lomake">
             </label>
             <br>
             <br>
             <label>Kuvaus (max 400 merkkiä)
                 <br>
-                <textarea name="kuvaus" rows="10" cols="40" maxlength="400"></textarea>
+                <textarea name="kuvaus" rows="10" cols="80" maxlength="400"></textarea>
             </label>
             <br>
             <button type="submit">Submit</button>
         </form>
         <br>
-    </div>
 
-    <div>
-        <form action="aaniupload" method="post" enctype="multipart/form-data" id="formAani">
+        <form action="aaniupload" method="post" enctype="multipart/form-data" id="formAani" class="latauslomake">
             <label>Äänite
                 <br>
-                <input type="file" name="sound" accept="audio/*">
+                <input type="file" name="sound" accept="audio/*" class="input-file">
             </label>
             <br>
             <br>
             <label>Tiedot (Max 50 Merkkiä)
                 <br>
-                <input type="text" name="nimi" placeholder="Nimi" required>
+                <input type="text" name="nimi" class="haku-lomake" placeholder="Nimi" required>
                 <br>
-                <input type="text" name="esittaja" placeholder="Esittäjä" required>
+                <input type="text" name="esittaja" class="haku-lomake" placeholder="Esittäjä" required>
                 <br>
-                <input type="text" name="saveltaja" maxlength="50" placeholder="Säveltäjä">
+                <input type="text" name="saveltaja" class="haku-lomake" maxlength="50" placeholder="Säveltäjä">
                 <br>
-                <input type="text" name="sanoittaja" placeholder="Sanoittaja">
+                <input type="text" name="sanoittaja" class="haku-lomake" placeholder="Sanoittaja">
                 <br>
-                <input type="text" name="sovittaja" placeholder="Sovittaja">
+                <input type="text" name="sovittaja" class="haku-lomake" placeholder="Sovittaja">
             </label>
             <br>
             <br>
             <label>Kuvaus (max 400 merkkiä)
                 <br>
-                <textarea name="kuvaus" rows="10" cols="40" maxlength="400"></textarea>
+                <textarea name="kuvaus" rows="10" cols="80" maxlength="400"></textarea>
             </label>
             <br>
             <button type="submit">Submit</button>
         </form>
         <br>
-    </div>
 
-    <div>
-        <form action="videoupload" method="post" id="formVideo">
+
+
+        <form action="videoupload" method="post" id="formVideo" class="latauslomake">
             <label>Video
             </label>
             <br>
             <label>Tiedot (Max 50 Merkkiä)
                 <br>
-                <input type="text" name="nimi" placeholder="Nimi" required>
+                <input type="text" name="nimi" class="haku-lomake" placeholder="Nimi" required>
                 <br>
-                <input type="text" name="url" placeholder="Videon URL" required>
+                <input type="text" name="url" class="haku-lomake" placeholder="Videon URL" required>
             </label>
             <br>
             <br>
             <label>Kuvaus (max 400 merkkiä)
                 <br>
-                <textarea name="kuvaus" rows="10" cols="40" maxlength="400"></textarea>
+                <textarea name="kuvaus" rows="10" cols="80" maxlength="400"></textarea>
             </label>
             <br>
             <button type="submit">Submit</button>
         </form>
         <br>
-    </div>
 
 </main>
 </body>

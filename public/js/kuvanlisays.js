@@ -1,18 +1,23 @@
 'use strict';
 const lomakeKuva = document.querySelector('#formKuva');
 const kuvafrm = document.querySelector('#formKuva');
-
 const lomakeAani = document.querySelector('#formAani');
 const aanifrm = document.querySelector('#formAani');
-
 const lomakeVideo = document.querySelector('#formVideo');
+
+const kuvanappi = document.querySelector('#buttonKuva');
+const aaninappi = document.querySelector('#buttonAani');
+const videonappi = document.querySelector('#buttonVideo');
+
+lomakeKuva.style.display = 'none';
+lomakeAani.style.display = 'none';
+lomakeVideo.style.display = 'none';
 
 console.log(document.cookie);
 const userID = document.cookie.split('=')[1];
 console.log('userID is', userID);
 
 document.addEventListener('DOMContentLoaded', function() {
-  alert("Ready!");
   fetch('./logged').then((response) => {
     return response.json();
   }).then((json) => {
@@ -35,6 +40,33 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 }, false);
 
+//
+//-------------Nappien näyttö
+//
+const showKuva = (evt1) => {
+  lomakeKuva.style.display = 'flex';
+  kuvanappi.style.display = 'none';
+lomakeAani.style.display = 'none';
+lomakeVideo.style.display = 'none';
+videonappi.style.display = 'block';
+aaninappi.style.display = 'block';
+};
+const showAani = (evt1) => {
+  lomakeAani.style.display = 'flex';
+  aaninappi.style.display = 'none';
+  lomakeVideo.style.display = 'none';
+  lomakeKuva.style.display = 'none';
+  kuvanappi.style.display = 'block';
+  videonappi.style.display = 'block';
+};
+const showVideo = (evt1) => {
+  lomakeVideo.style.display = 'flex';
+  videonappi.style.display = 'none';
+  lomakeKuva.style.display = 'none';
+  lomakeAani.style.display = 'none';
+  kuvanappi.style.display = 'block';
+  aaninappi.style.display = 'block';
+};
 
 //
 //--------------Kuvan lähetys----------------------------
@@ -132,7 +164,9 @@ const respovideo = (testi) => {
 //
 //-----------------------------------------------------
 //
-
+kuvanappi.addEventListener('click', showKuva);
+aaninappi.addEventListener('click', showAani);
+videonappi.addEventListener('click', showVideo);
 
 lomakeVideo.addEventListener('submit', lahetaVideo);
 lomakeAani.addEventListener('submit', lahetaAani);

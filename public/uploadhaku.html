@@ -6,34 +6,62 @@
     <link rel="stylesheet" type="text/css" href="css/main.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
-<body>
-<form action="uploadhaku" method="post" id="formHaku">
+<body class="body-box">
+<nav class="fronthead">
+    <div class="valikko" id="valikko">
+        <a href="login.html">Etusivu</a> <!--poistettu class: lista button class="active"-->
+        <a href="lasnaolo.html">Nimenhuuto</a>
+        <a href="kuvanlisays.html">Lisää mediaa</a>
+        <a href="tapahtumanlisays.html">Lisää uusi tapahtuma</a>
+        <a href="uploadhaku.html">Haku</a>
+        <a href="videoHaku.html">Videon haku</a>
+        <a href="javascript:void(0);" class="icon">
+            <i class="fa fa-bars"></i>
+        </a>
+    </div>
+   <!-- <form id="loginForm"><input class="hae" id="haku" placeholder="haku">
+        <button type="submit" name="hae " class="button-login"></button>
+    </form>-->
+
+</nav>
+<main id="container">
+<form action="uploadhaku" method="post" class="hakusivunappi" id="formHaku">
     <br>
-    <input type="text" name="haku" placeholder="Hakukenttä" required>
+    <input type="text" name="haku" class="input" style="width: 100%" placeholder="Hakukenttä" required>
     <br>
-    <button type="submit">Submit</button>
+    <button type="submit" style="width: 80%">Submit</button>
     </form>
 
 <div class="modal hidden" id="modal1">
     <button id="x">&times;</button>
+    <p id="Nimi"></p>
     <figure>
         <a href="" download>
         <img src="" alt="">
         </a>
     </figure>
     <button id="like">like</button>
-
+    <p id="Saveltaja"></p>
+    <p id="Sanoittaja"></p>
+    <p id="Sovittaja"></p>
+    <p id="Kuvaus"></p>
 </div>
 
 <div class="modal hidden" id="modal2">
     <button id="y">&times;</button>
+    <p id="Nimi2"></p>
     <figure>
             <audio src="" controls></audio>
     </figure>
     <button id="like1">like</button>
-
+    <p id="Esittaja"></p>
+    <p id="Saveltaja2"></p>
+    <p id="Sanoittaja2"></p>
+    <p id="Sovittaja2"></p>
+    <p id="Kuvaus2"></p>
 </div>
 <div id="holder"></div>
+</main>
 <script src="js/uploadHaku.js"></script>
 </body>
 </html>

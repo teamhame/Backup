@@ -6,49 +6,58 @@
     <link rel="stylesheet" type="text/css" href="css/main.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
-<body>
+<body class="body-box">
 <nav class="fronthead">
-    <button class="lista">o</button>
-    <input class="haku" id="haku" placeholder="haku">
+    <div class="valikko" id="valikko">
+        <a href="login.html">Etusivu</a> <!--poistettu class: lista button class="active"-->
+        <a href="lasnaolo.html">Nimenhuuto</a>
+        <a href="kuvanlisays.html">Lisää mediaa</a>
+        <a href="tapahtumanlisays.html">Lisää uusi tapahtuma</a>
+        <a href="uploadhaku.html">Haku</a>
+        <a href="videoHaku.html">Videon haku</a>
+        <a href="javascript:void(0);" class="icon">
+            <i class="fa fa-bars"></i>
+        </a>
+    </div>
+    <form class="loginForm"><input class="hae" id="haku" placeholder="haku">
+        <button type="submit" name="hae " class="button-login">Go</button>
+    </form>
 </nav>
 <main class="container">
 
-    <div>
-        <button>Tapahtuma</button>
+        <button id="tapahtumanappi">Tapahtuma</button>
         <br>
-        <button>Tiedote</button>
+        <button id="tiedotenappi">Tiedote</button>
         <br>
-    </div>
 
-    <div>
-        <form action="Tapahtumaupload" method="post" id="formTapahtuma">
+        <form action="Tapahtumaupload" method="post" id="formTapahtuma" class="latauslomake">
             <br>
             <label>Tiedot (Max 50 Merkkiä)
                 <br>
-                <input type="text" name="Nimi" placeholder="Nimi" required>
+                <input type="text" name="Nimi" placeholder="Nimi" class="haku-lomake" required>
                 <br>
                 <br>
                 <label>Tapahtuman Alkamisaika
                     <br>
-                    <input type="date" name="Alkaapvm" id="alku" required>
+                    <input type="date" name="Alkaapvm" id="alku" class="haku-lomake" required>
                 </label>
                 <br>
                 <br>
                 <label>Tapahtuman Alkamisaika
                     <br>
-                    <input type="time" name="Alkaaklo" id="alkuklo" required>
+                    <input type="time" name="Alkaaklo" id="alkuklo" class="haku-lomake" required>
                 </label>
                 <br>
                 <br>
                 <label>Tapahtuman Päättymisaika
                     <br>
-                    <input type="date" name="Loppuupvm" id="loppu" required>
+                    <input type="date" name="Loppuupvm" id="loppu" class="haku-lomake" required>
                 </label>
                 <br>
                 <br>
                 <label>Tapahtuman Päättymisaika
                     <br>
-                    <input type="time" name="Loppuuklo" id="loppuklo" required>
+                    <input type="time" name="Loppuuklo" id="loppuklo" class="haku-lomake" required>
                 </label>
                 <br>
             </label>
@@ -56,45 +65,29 @@
             <br>
             <label>Kuvaus (max 400 merkkiä)
                 <br>
-                <textarea name="Kuvaus" rows="10" cols="40" maxlength="400"></textarea>
+                <textarea name="Kuvaus" rows="10" cols="80" maxlength="400"></textarea>
             </label>
             <br>
             <button type="submit">Submit</button>
         </form>
         <br>
-    </div>
 
-    <div>
-        <form action="aaniupload" method="post" enctype="multipart/form-data" id="formAani">
-            <label>Äänite
-                <br>
-                <input type="file" name="sound" accept="audio/*">
-            </label>
+        <form action="Tiedoteupload" method="post" id="formTiedote" class="latauslomake">
             <br>
-            <br>
-            <label>Tiedot (Max 50 Merkkiä)
+            <label>Tiedote - Tiedot (Max 50 Merkkiä)
                 <br>
-                <input type="text" name="nimi" placeholder="Nimi" required>
-                <br>
-                <input type="text" name="esittaja" placeholder="Esittäjä" required>
-                <br>
-                <input type="text" name="saveltaja" maxlength="50" placeholder="Säveltäjä">
-                <br>
-                <input type="text" name="sanoittaja" placeholder="Sanoittaja">
-                <br>
-                <input type="text" name="sovittaja" placeholder="Sovittaja">
+                <input type="text" name="Otsikko" class="haku-lomake" placeholder="Otsikko" required>
             </label>
             <br>
             <br>
             <label>Kuvaus (max 400 merkkiä)
                 <br>
-                <textarea name="kuvaus" rows="10" cols="40" maxlength="400"></textarea>
+                <textarea name="Teksti" rows="10" cols="80" maxlength="400"></textarea>
             </label>
             <br>
             <button type="submit">Submit</button>
         </form>
         <br>
-    </div>
 </main>
 
 <script src="js/tapahtumanlisays.js"></script>

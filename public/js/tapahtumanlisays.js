@@ -1,8 +1,40 @@
 'use strict';
 
 const lomakeTapahtuma = document.querySelector('#formTapahtuma');
+const lomakeTiedote = document.querySelector('#formTiedote');
 const alkamisaika = document.querySelector('#alku');
 const paattumisaika = document.querySelector('#loppu');
+
+const tapahtumanappi = document.querySelector('#tapahtumanappi');
+const tiedotenappi = document.querySelector('#tiedotenappi');
+
+lomakeTapahtuma.style.display = 'none';
+lomakeTiedote.style.display = 'none';
+
+
+document.addEventListener('DOMContentLoaded', function() {
+  fetch('./logged').then((response) => {
+    return response.json();
+  }).then((json) => {
+    console.log(json);
+    respologged(json);
+  });
+  const respologged = (testi) => {
+    if (testi.status === "OK"){
+      console.log("ok");
+    }else {
+      console.log('not ok');
+      function timeout(param) {
+        console.log(param);
+        window.location.replace('HTTPS://10.114.32.171/node/index.html?page='+encodeURIComponent(window.location));
+      }
+      setTimeout(timeout, 5, 'moi');
+
+    }
+
+  }
+}, false);
+
 
 const lahetaTapahtuma = (evtTapahtuma) => {
   evtTapahtuma.preventDefault();
@@ -50,23 +82,76 @@ const lahetaTapahtuma = (evtTapahtuma) => {
       return response.json();
     }).then((json) => {
       console.log('tämä ', json);
-      respovideo(json);
+      respotapahtuma(json);
     });
   }
-  ;
-};
-const respovideo = (testi) => {
 
-  if (testi.status === 'video OK') {
-    alert('Videon Upload onnistui!');
+};
+const respotapahtuma = (testi) => {
+
+  if (testi.status === 'Tapahtuman lisäys valmis') {
+    alert('Tapahtuman Upload onnistui!');
   }
   else {
-    alert('Videon Upload epäonnistui!');
+    alert('Tapahtuman Upload epäonnistui!');
   }
 };
+
+//****************************************************
+//----------------------------------------------------
+//****************************************************
+
+const lahetaTiedote = (evtTiedote) => {
+  evtTiedote.preventDefault();
+  const data5 = JSON.stringify([
+    lomakeTiedote.querySelector('input[name="Otsikko"]').value,
+    lomakeTiedote.querySelector('textarea[name="Teksti"]').value,
+  ]);
+  const asetukset = {
+    method: 'post',
+    body: data5,
+    headers: {
+      'Content-Type': 'application/json; charset=utf-8',
+    },
+  };
+
+  fetch('./uploadtiedote', asetukset).then((response) => {
+    return response.json();
+  }).then((json) => {
+    console.log('tämä ', json);
+    alert('voitit pelin!!!!!!!!!!!!!!!!!!!!!!!!!!');
+    //respotapahtuma(json);
+  });
+
+
+};
+
+//****************************************************
+//----------------------------------------------------
+//****************************************************
+
+const showTapahtuma = (evt1) =>{
+  tapahtumanappi.style.display='none';
+  tiedotenappi.style.display='block';
+  lomakeTapahtuma.style.display = 'flex';
+  lomakeTiedote.style.display = 'none';
+};
+
+
+const showTiedote = (evt2)=>{
+  tapahtumanappi.style.display='block';
+  tiedotenappi.style.display='none';
+  lomakeTapahtuma.style.display = 'none';
+  lomakeTiedote.style.display = 'flex';
+};
+
+
 
 //
 //-----------------------------------------------------
 //
 
+tapahtumanappi.addEventListener('click', showTapahtuma);
+tiedotenappi.addEventListener('click', showTiedote);
 lomakeTapahtuma.addEventListener('submit', lahetaTapahtuma);
+lomakeTiedote.addEventListener('submit', lahetaTiedote);

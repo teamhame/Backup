@@ -114,11 +114,11 @@ const insertVideo = (data, connection, callback) => {
 
 const insertTapahtuma = (data, connection, callback) => {
   connection.execute(
-      'INSERT INTO Tapahtuma (tapahtumanNimi, tapahtumaIlmoAlkaa, tapahtumaIloLoppuu, tapahtumaAlkaa, tapahtumaLoppuu, tapahtumaKuvaus) VALUES (?, NOW(), ?, ?, ?, ?);',
+      'INSERT INTO Tapahtuma (tapahtumaNimi, tapahtumaIlmoAlkaa, tapahtumaIlmoLoppuu, tapahtumaAlkaa, tapahtumaLoppuu, tapahtumaKuvaus) VALUES (?, NOW(), ?, ?, ?, ?);',
       data,
       (err, results, fields) => {
 
-        console.log(err, ' database insertVideo console log');
+        console.log(err, ' database insertTapahtuma console log');
         callback();
       },
   );
@@ -126,11 +126,10 @@ const insertTapahtuma = (data, connection, callback) => {
 
 const insertTiedote = (data, connection, callback) => {
   connection.execute(
-      'INSERT INTO Tiedote (tiedoteOtsikko, tiedoteTeksi, tiedoteAikaleima, kayttajaId) VALUES (?, ?, ?, ?);',
+      'INSERT INTO Tiedote (tiedoteOtsikko, tiedoteTeksti, tiedoteAikaleima, kayttajaId) VALUES (?, ?, NOW(), ?);',
       data,
       (err, results, fields) => {
-
-        console.log(err, ' database insertVideo console log');
+        console.log(err, ' database insertTiedote console log');
         callback();
       },
   );
@@ -152,7 +151,10 @@ const insertKommentti = (data, connection, callback) => {
 const selectKommentit = (connection, callback) => {
   // simple query
   connection.query(
-      'SELECT kayttajaId, kommenttiAikaleima, kommenttiTeksti FROM Kommentti',
+      'SELECT Kayttaja.kayttajaEtunimi, Kayttaja.kayttajaSukunimi, Kommentti.kommenttiAikaleima, Kommentti.kommenttiTeksti\n' +
+      'FROM Kayttaja, Kommentti\n' +
+      'WHERE Kommentti.kayttajaId = Kayttaja.kayttajaId\n' +
+      'ORDER BY Kommentti.kommenttiAikaleima DESC;',
       (err, results, fields) => {
         console.log(err);
         callback(results);
@@ -173,6 +175,7 @@ const selectHaku = (data, connection, callback) => {
   );
 };
 
+
 //videoiden nouto tietokannasta
 const selectVideoHaku = (data, connection, callback) => {
   // simple query
@@ -188,6 +191,68 @@ const selectVideoHaku = (data, connection, callback) => {
   );
 };
 
+const haeTykkays = (data, connection, callback) =>{
+  connection.query(
+      'SELECT kayttajaId, mediaId, tykkays FROM TykkaaMediasta WHERE mediaId = ? AND kayttajaId = ?;',
+      data,
+      (err, results, fields)=>{
+        console.log(err, 'database haeTykkäys console log');
+        callback(results);
+      },
+  );
+};
+
+const selectHakuTykkays = (data, connection, callback)=> {
+  connection.query(
+      'SELECT COUNT(*) FROM TykkaaMediasta WHERE mediaId = ?',
+      data,
+      (err, results, fields) => {
+        console.log(err);
+        callback(results);
+      },
+  );
+};
+
+
+//tykkäys
+const insertTykkays = (data, connection, callback) =>{
+  connection.execute(
+      'INSERT INTO TykkaaMediasta (mediaId, kayttajaId) VALUE (? , ?);',
+      data,
+      (err, results, fields) => {
+        console.log(err, ' database insertTykkäys console log');
+        callback();
+      },
+  );
+};
+
+const  deleteTykkays =(data, connection, callback)=>{
+  connection.execute(
+      'DELETE FROM TykkaaMediasta WHERE mediaId = ? AND kayttajaId = ?;',
+      data,
+      (err, results, fields) => {
+        console.log(err, ' database deleteTykkäys console log');
+        callback();
+      },
+      );
+};
+
+//------------------------------------------------------------------------
+
+/*
+const selectTapahtumatNostatus = (connection, callback) => {
+  // simple query
+  connection.query(
+      'SELECT kayttajaId, kommenttiAikaleima, kommenttiTeksti FROM Kommentti',
+      (err, results, fields) => {
+        console.log(err);
+        callback(results);
+      },
+  );
+};
+// TÄMÄ ON VIELÄ KESKEN!!!!!!!!!!!!!
+*/
+//-------------------------------------------------------------------------
 const update = (data, connection) => {
   // simple query
   return connection.execute(
@@ -217,4 +282,8 @@ module.exports = {
   selectKommentit: selectKommentit,
   selectHaku: selectHaku,
   selectVideoHaku: selectVideoHaku,
+  insertTykkays: insertTykkays,
+  haeTykkays: haeTykkays,
+  deleteTykkays: deleteTykkays,
+  selectHakuTykkays: selectHakuTykkays,
 };

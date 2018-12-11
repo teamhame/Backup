@@ -9,17 +9,23 @@
 <body class="body-box">
 <nav class="fronthead">
     <div class="valikko" id="valikko">
-        <a href="#nolla">Nolla</a> <!--poistettu class: lista button class="active"-->
-        <a href="#eka">Eka</a>
-        <a href="#toka">Toka</a>
-        <a href="#kolmas">Kolmas</a>
+        <a href="login.html">Etusivu</a> <!--poistettu class: lista button class="active"-->
+        <a href="lasnaolo.html">Nimenhuuto</a>
+        <a href="kuvanlisays.html">Lisää mediaa</a>
+        <a href="tapahtumanlisays.html">Lisää uusi tapahtuma</a>
+        <a href="uploadhaku.html">Haku</a>
+        <a href="videoHaku.html">Videon haku</a>
         <a href="javascript:void(0);" class="icon">
             <i class="fa fa-bars"></i>
         </a>
     </div>
-    <input class="hae" id="haku" placeholder="haku">
+    <form class="loginForm"><input class="hae" id="haku" placeholder="haku">
+        <button type="submit" name="hae " class="button-login">Go</button>
+    </form>
+
 </nav>
 <main id="container">
+    <div class="kalenterimuotoilu">
     <div class="kalenteri">
         <h3>Tapahtumat, joihin et ole vielä ilmoittautunut:</h3>
         <ul>
@@ -53,6 +59,8 @@
         </ul>
         <div class="nuoli-nappi"></div>
     </div>
+    </div>
 </main>
 </body>
+<script src="js/lasnaolo.js"></script>
 </html>
